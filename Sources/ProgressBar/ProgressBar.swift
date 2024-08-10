@@ -24,7 +24,7 @@ public struct ProgressBar: View {
         self.init(progress: progress, lineWidth: 8)
     }
     
-    var body: some View {
+    public var body: some View {
         let strokeStyle = StrokeStyle(lineWidth: lineWidth,
                                       lineCap: .round,
                                       lineJoin: .round)
