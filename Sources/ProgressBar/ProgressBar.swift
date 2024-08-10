@@ -10,17 +10,17 @@ public struct ProgressBar: View {
     @State private var progressFinal: Float = 0
     private let color: Color
     
-    init(progress: Float, lineWidth: CGFloat, color: Color) {
+    public init(progress: Float, lineWidth: CGFloat, color: Color) {
         self.lineWidth = lineWidth
         self.progress = progress
         self.color = color
     }
     
-    init(progress: Float, lineWidth: CGFloat) {
+    public init(progress: Float, lineWidth: CGFloat) {
         self.init(progress: progress, lineWidth: lineWidth, color: .random)
     }
     
-    init(progress: Float) {
+    public init(progress: Float) {
         self.init(progress: progress, lineWidth: 8)
     }
     
