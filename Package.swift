@@ -4,23 +4,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "ProgressView",
+    name: "ProgressBar",
     platforms: [
         .iOS(.v15)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "ProgressView",
-            targets: ["ProgressView"]),
+            name: "ProgressBar",
+            targets: ["ProgressBar"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "ProgressView"),
+            name: "ProgressBar"),
         .testTarget(
-            name: "ProgressViewTests",
-            dependencies: ["ProgressView"]),
+            name: "ProgressBarTests",
+            dependencies: ["ProgressBar"]),
     ]
 )
