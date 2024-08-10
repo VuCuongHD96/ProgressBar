@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-struct ProgressBar: View {
+public struct ProgressBar: View {
     
     private let lineWidth: CGFloat
     var progress: Float
