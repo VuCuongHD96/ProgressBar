@@ -31,7 +31,7 @@ public struct ProgressBar: View {
         ZStack {
             Circle()
                 .stroke(lineWidth: lineWidth * 0.5)
-                .foregroundColor(color.opacity(0.2))
+                .foregroundColor(color.opacity(0.5))
             Circle()
                 .trim(from: 0, to: CGFloat(min(progressFinal, 1.0)))
                 .stroke(style: strokeStyle)
