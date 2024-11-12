@@ -9,19 +9,21 @@ public struct ProgressBar: View {
     var progress: Float
     @State private var progressFinal: Float = 0
     private let color: Color
+    private var isShowLabel = true
     
-    public init(progress: Float, lineWidth: CGFloat, color: Color) {
+    public init(progress: Float, lineWidth: CGFloat, color: Color, isShow: Bool = true) {
         self.lineWidth = lineWidth
         self.progress = progress
         self.color = color
+        self.isShowLabel = isShow
     }
     
-    public init(progress: Float, lineWidth: CGFloat) {
-        self.init(progress: progress, lineWidth: lineWidth, color: .random)
+    public init(progress: Float, lineWidth: CGFloat, isShow: Bool = true) {
+        self.init(progress: progress, lineWidth: lineWidth, color: .random, isShow: isShow)
     }
     
-    public init(progress: Float) {
-        self.init(progress: progress, lineWidth: 8)
+    public init(progress: Float, isShow: Bool = true) {
+        self.init(progress: progress, lineWidth: 8, isShow: isShow)
     }
     
     public var body: some View {
@@ -43,8 +45,10 @@ public struct ProgressBar: View {
             progressFinal = progress
         }
         .overlay {
-            let percent = String(format: "%.1f", progress * 100)
-            Text("\(percent)%")
+            if isShowLabel {
+                let percent = String(format: "%.1f", progress * 100)
+                Text("\(percent)%")
+            }
         }
     }
 }
@@ -63,7 +67,7 @@ struct ContentView: View {
             ProgressBar(progress: 0.65)
             ProgressBar(progress: 0.75)
             ProgressBar(progress: 0.85)
-            ProgressBar(progress: 0.95)
+            ProgressBar(progress: 0.95, isShow: false)
         }
         .padding()
     }
