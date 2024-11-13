@@ -5,25 +5,18 @@ import SwiftUI
 
 public struct ProgressBar: View {
     
-    private let lineWidth: CGFloat
-    var progress: Float
     @State private var progressFinal: Float = 0
-    private let color: Color
-    private var isShowLabel = true
     
-    public init(progress: Float, lineWidth: CGFloat, color: Color, isShow: Bool = true) {
-        self.lineWidth = lineWidth
+    var progress: Float
+    let color: Color
+    let lineWidth: CGFloat
+    var isShowProgressLabel = true
+    
+    public init(progress: Float, color: Color = .random, lineWidth: CGFloat = 6, isShowProgressLabel: Bool = true) {
         self.progress = progress
         self.color = color
-        self.isShowLabel = isShow
-    }
-    
-    public init(progress: Float, lineWidth: CGFloat, isShow: Bool = true) {
-        self.init(progress: progress, lineWidth: lineWidth, color: .random, isShow: isShow)
-    }
-    
-    public init(progress: Float, isShow: Bool = true) {
-        self.init(progress: progress, lineWidth: 8, isShow: isShow)
+        self.lineWidth = lineWidth
+        self.isShowProgressLabel = isShowProgressLabel
     }
     
     public var body: some View {
@@ -39,40 +32,21 @@ public struct ProgressBar: View {
                 .stroke(style: strokeStyle)
                 .foregroundColor(color)
                 .rotationEffect(.degrees(270))
-                .animation(.easeInOut(duration: 2.0), value: progressFinal)
+                .animation(.easeInOut(duration: 1.0), value: progressFinal)
         }
         .onAppear {
             progressFinal = progress
         }
         .overlay {
-            if isShowLabel {
+            if isShowProgressLabel {
                 let percent = String(format: "%.1f", progress * 100)
                 Text("\(percent)%")
+                    .contentTransition(.numericText())
+                    .animation(.spring, value: percent)
             }
         }
-    }
-}
-
-struct ContentView: View {
-    
-    let columns = Array.init(repeating: GridItem(), count: 3)
-    
-    var body: some View {
-        LazyVGrid(columns: columns, spacing: 50) {
-            ProgressBar(progress: 0.15)
-            ProgressBar(progress: 0.25)
-            ProgressBar(progress: 0.35)
-            ProgressBar(progress: 0.45)
-            ProgressBar(progress: 0.55)
-            ProgressBar(progress: 0.65)
-            ProgressBar(progress: 0.75)
-            ProgressBar(progress: 0.85)
-            ProgressBar(progress: 0.95, isShow: false)
+        .onChange(of: progress) { oldValue, newValue in
+            progressFinal = newValue
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
