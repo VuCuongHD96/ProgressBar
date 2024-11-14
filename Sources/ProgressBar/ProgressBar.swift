@@ -34,19 +34,23 @@ public struct ProgressBar: View {
                 .rotationEffect(.degrees(270))
                 .animation(.easeInOut(duration: 1.0), value: progressFinal)
         }
-        .onAppear {
-            progressFinal = progress
-        }
         .overlay {
             if isShowProgressLabel {
-                let percent = String(format: "%.1f", progress * 100)
+                let percent = String(format: "%.1f", progressFinal * 100)
                 Text("\(percent)%")
                     .contentTransition(.numericText())
                     .animation(.spring, value: percent)
             }
         }
         .onChange(of: progress) { oldValue, newValue in
-            progressFinal = newValue
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                progressFinal = newValue
+            }
+        }
+        .onAppear {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                progressFinal = progress
+            }
         }
     }
 }
